@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 
-export interface Paciente {
+export interface Patient {
   _id?: string;
   nombre: string;
   apellidoPaterno: string;
@@ -11,4 +11,4 @@ export interface Paciente {
   codigoPostal: number;
 }
 
-export const PacientesCollection = new Mongo.Collection<Paciente>('pacientes');
+export const PatientsCollection = new Mongo.Collection<Patient>('patiens');
