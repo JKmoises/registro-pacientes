@@ -1,18 +1,8 @@
 import { PatientProp, PatientsCollection } from "/imports/api/PatientsCollection";
 import { Meteor } from 'meteor/meteor';
-import { generateRut } from "rutlib/lib";
+import { patiens, regions } from "./data";
+import { RegionProp, RegionsCollection } from "/imports/api/RegionsCollection";
 
-let patiens: PatientProp[] = [
-  {
-    nombre: "Jonathan",
-    apellidoPaterno: "Adones",
-    apellidoMaterno: "Torres",
-    rut: generateRut(7,false),
-    region: "Valparaíso",
-    comuna: "Valparaíso",
-    codigoPostal: 83000000
-  },
-];
 
 const insertPatiens = (patient: PatientProp) => {
   let {
@@ -36,9 +26,22 @@ const insertPatiens = (patient: PatientProp) => {
   });
 };
 
+const insertRegions = (region: RegionProp) => {
+  let { nombreRegion, comunas } = region;
+  
+  RegionsCollection.insert({
+    nombreRegion,
+    comunas
+  });
+}
+
 Meteor.startup(() => {
   if (PatientsCollection.find().count() === 0) {
     patiens.forEach(insertPatiens);
+  }
+
+  if (RegionsCollection.find().count() === 0) {
+    regions.forEach(insertRegions);
   }
 });
 

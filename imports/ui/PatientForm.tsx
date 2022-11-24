@@ -65,7 +65,7 @@ const SelectForm = styled(InputForm)`
 
 const BtnForm = styled.input.attrs({ type: "submit" })`
   font-size: 1.3rem;
-  padding: 0.3rem;
+  padding: 0.5rem 1.5rem;
   text-transform: uppercase;
   background-color: var(--pink-color);
   color: var(--white-color);
@@ -80,6 +80,7 @@ const BtnForm = styled.input.attrs({ type: "submit" })`
 
   @media screen and (min-width: 768px) {
     grid-column: 2 / 3;
+    justify-self: end;
   }
 `;
 
