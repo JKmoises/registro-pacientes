@@ -1,18 +1,22 @@
 import React from 'react';
-import { GlobalStyle } from '../globalStyles';
+import { GlobalStyle } from './styles/globalStyles';
 import { Patients } from './Patients';
 import styled from 'styled-components';
+import { PatientForm } from './PatientForm';
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   margin-top: 2rem;
 `;
 
 export const App = () => {
   return (
     <Container>
-      <GlobalStyle/>
+      <GlobalStyle />
+      <PatientForm/>
       <Patients/>
     </Container>
   )

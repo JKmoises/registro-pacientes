@@ -5,8 +5,10 @@ import { PatientProp, PatientsCollection } from "../api/PatientsCollection";
 import { Patient } from './Patient';
 
 const TablePatiens = styled.table`
+  display: grid;
   border-collapse: collapse;
   overflow-x: auto;
+  border-radius: 0.2rem;
 
   & > thead {
     position: sticky;

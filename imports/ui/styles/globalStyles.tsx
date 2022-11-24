@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     --white-color: #fff;
     --gray-color: #e0e0e0;
     --gray-light-color: #efefef;
+    --gray-dark-color: #6e6e6e;
     --font: 'Noto Sans', sans-serif;
   }
 
@@ -57,7 +58,7 @@ export const GlobalStyle = createGlobalStyle`
 
 
   p {
-    margin: 0;
     line-height: 1.6;
   }
+  
 `;
