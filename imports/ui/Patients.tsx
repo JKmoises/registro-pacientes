@@ -55,6 +55,7 @@ export const Patients = () => {
           <ThTable>Región</ThTable>
           <ThTable>Comuna</ThTable>
           <ThTable>Código Postal</ThTable>
+          <ThTable>Acciones</ThTable>
         </tr>
       </thead>
       <tbody>
