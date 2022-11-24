@@ -4,11 +4,13 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { PatientProp, PatientsCollection } from "../api/PatientsCollection";
 import { Patient } from './Patient';
 
+
 const TablePatiens = styled.table`
-  display: grid;
+  display: inline-block;
   border-collapse: collapse;
+  border-radius: 0.5rem;
+  width: 100%;
   overflow-x: auto;
-  border-radius: 0.2rem;
 
   & > thead {
     position: sticky;
@@ -33,6 +35,10 @@ const TablePatiens = styled.table`
   td {
     padding: 0.5rem 1rem;
     text-align: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: auto;
   }
 `;
 
