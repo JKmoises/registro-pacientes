@@ -1,8 +1,8 @@
-import { Patient, PatientsCollection } from "/imports/api/PatientsCollection";
+import { PatientProp, PatientsCollection } from "/imports/api/PatientsCollection";
 import { Meteor } from 'meteor/meteor';
 import { generateRut } from "rutlib/lib";
 
-let patiens: Patient[] = [
+let patiens: PatientProp[] = [
   {
     nombre: "Jonathan",
     apellidoPaterno: "Adones",
@@ -14,8 +14,16 @@ let patiens: Patient[] = [
   },
 ];
 
-const insertPatiens = (patient: Patient) => {
-  let { nombre, apellidoPaterno, apellidoMaterno, rut, region, comuna, codigoPostal } = patient;
+const insertPatiens = (patient: PatientProp) => {
+  let {
+    nombre,
+    apellidoPaterno,
+    apellidoMaterno,
+    rut,
+    region,
+    comuna,
+    codigoPostal,
+  } = patient;
 
   PatientsCollection.insert({
     nombre,
@@ -24,9 +32,9 @@ const insertPatiens = (patient: Patient) => {
     rut,
     region,
     comuna,
-    codigoPostal
+    codigoPostal,
   });
-}
+};
 
 Meteor.startup(() => {
   if (PatientsCollection.find().count() === 0) {
