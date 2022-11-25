@@ -10,6 +10,7 @@ const TablePatiens = styled.table`
   border-collapse: collapse;
   border-radius: 0.5rem;
   width: 100%;
+  margin-bottom: 2rem;
   overflow-x: auto;
 
   & > thead {

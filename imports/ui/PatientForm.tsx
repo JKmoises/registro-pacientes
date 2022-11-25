@@ -6,6 +6,7 @@ import { PatientProp } from '../api/PatientsCollection';
 import { RegionsCollection, RegionProp } from '../api/RegionsCollection';
 import { CommunesForm } from './CommunesForm';
 import { RegionsForm } from './RegionsForm';
+import { PatientsCollection } from "../api/PatientsCollection";
 
 
 interface FieldProps {
@@ -19,8 +20,7 @@ interface AppState {
 
 const ContainerForm = styled.div`
   max-width: 40rem;
-  width: 100%;
-  padding: 1rem;
+  width: 90%;
 
   & > .title-form {
     text-align: center;
@@ -64,6 +64,7 @@ const Field = styled.div<FieldProps>`
 
 const InputForm = styled.input`
   padding: 0.3rem 0 0.3rem 0.4rem;
+  width: 100%;
   font-size: 1.1rem;
   border: 0;
   border-bottom: thin solid var(--gray-color);
@@ -71,7 +72,7 @@ const InputForm = styled.input`
   transition:  border-bottom .3s ease-in-out;
 
   &:focus {
-    border-bottom: thin solid var(--pink-color);
+    border-bottom: 2px solid var(--pink-color);
   }
 `;
 
@@ -131,6 +132,8 @@ export const PatientForm = () => {
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
     console.log(data);
+
+    PatientsCollection.insert(data);
   };
 
 
