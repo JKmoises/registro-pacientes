@@ -2,7 +2,7 @@ import React from 'react'
 import { PatientProp } from '../api/PatientsCollection';
 import styled from 'styled-components';
 
-interface AppProp {
+interface AppProps {
   patient: PatientProp;
 }
 
@@ -25,7 +25,7 @@ const BtnDelete = styled(TdTable)`
   
 `;
 
-export const Patient = ({ patient }: AppProp) => {
+export const Patient = ({ patient }: AppProps) => {
   let {rut,nombre, apellidoPaterno,apellidoMaterno,region,comuna,codigoPostal} = patient;
 
   return (

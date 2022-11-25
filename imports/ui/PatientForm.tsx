@@ -1,9 +1,18 @@
-import React from 'react'
+import { useTracker } from 'meteor/react-meteor-data';
+import React, { useState } from 'react'
 import styled from 'styled-components';
+import { RegionsCollection, RegionProp } from '../api/RegionsCollection';
+import { CommunesForm } from './CommunesForm';
+import { RegionsForm } from './RegionsForm';
 
 
 interface FieldProps {
   isSpan?: boolean;
+}
+
+
+interface AppState {
+  region: string;
 }
 
 const ContainerForm = styled.div`
@@ -84,9 +93,36 @@ const BtnForm = styled.input.attrs({ type: "submit" })`
   }
 `;
 
-
+let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
+  const [region, setRegion] = useState<AppState["region"]>(initialRegion);
+  
+
+  const regions: RegionProp[] = useTracker(() =>
+    RegionsCollection.find(
+      {},
+      { fields: { nombreRegion: 1 }, sort: { rut: -1 } }
+    ).fetch()
+  );
+
+  const communes: RegionProp =
+    useTracker(() =>
+      RegionsCollection.findOne(
+        { nombreRegion: region },
+        { fields: { nombreRegion: 0 } }
+      )
+    ) ?? {};
+  
+
+  const getCommunes: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    let regionName: string = e.target.value;
+
+    setRegion(regionName);
+    
+  };
+
+
   return (
     <ContainerForm>
       <h1 className="title-form">Registro de paciente</h1>
@@ -114,15 +150,15 @@ export const PatientForm = () => {
 
         <Field isSpan>
           <label>Región:</label>
-          <SelectForm as="select">
-            <option defaultValue="">Seleccione una región</option>
+          <SelectForm onChange={getCommunes} as="select">
+            <RegionsForm regions={regions} />
           </SelectForm>
         </Field>
 
         <Field isSpan>
           <label>Comuna:</label>
           <SelectForm as="select">
-            <option defaultValue="">Seleccione una comuna</option>
+            <CommunesForm communesByRegion={communes} />
           </SelectForm>
         </Field>
 
