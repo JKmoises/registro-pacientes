@@ -1,6 +1,8 @@
 import { useTracker } from 'meteor/react-meteor-data';
 import React, { useState } from 'react'
+import { useForm, SubmitHandler } from "react-hook-form";
 import styled from 'styled-components';
+import { PatientProp } from '../api/PatientsCollection';
 import { RegionsCollection, RegionProp } from '../api/RegionsCollection';
 import { CommunesForm } from './CommunesForm';
 import { RegionsForm } from './RegionsForm';
@@ -29,6 +31,7 @@ const ContainerForm = styled.div`
 
   & > .text-form {
     font-size: 1.2rem;
+    padding-left: 0.4rem;
   }
 `;
 
@@ -64,12 +67,16 @@ const InputForm = styled.input`
   font-size: 1.1rem;
   border: 0;
   border-bottom: thin solid var(--gray-color);
+  outline: none;
+  transition:  border-bottom .3s ease-in-out;
+
+  &:focus {
+    border-bottom: thin solid var(--pink-color);
+  }
 `;
 
 const SelectForm = styled(InputForm)`
   background-color: transparent;
-  color: var(--gray-dark-color);
-
 `;
 
 const BtnForm = styled.input.attrs({ type: "submit" })`
@@ -97,6 +104,7 @@ let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
+  const { register, handleSubmit } = useForm<PatientProp>();
   
 
   const regions: RegionProp[] = useTracker(() =>
@@ -119,7 +127,10 @@ export const PatientForm = () => {
     let regionName: string = e.target.value;
 
     setRegion(regionName);
-    
+  };
+
+  const insertPatient: SubmitHandler<PatientProp> = (data) => {
+    console.log(data);
   };
 
 
@@ -127,44 +138,64 @@ export const PatientForm = () => {
     <ContainerForm>
       <h1 className="title-form">Registro de paciente</h1>
       <p className="text-form">Ingrese datos del paciente, por favor:</p>
-      <Form>
+      <Form onSubmit={handleSubmit(insertPatient)}>
         <Field>
           <label>Rut:</label>
-          <InputForm type="text" placeholder="Tu Rut" />
+          <InputForm type="text" {...register("rut")} placeholder="Tu Rut..." />
         </Field>
 
         <Field>
           <label>Nombre:</label>
-          <InputForm type="text" placeholder="Tu Nombre" />
+          <InputForm
+            type="text"
+            {...register("nombre")}
+            placeholder="Tu Nombre..."
+          />
         </Field>
 
         <Field>
           <label>Apellido Paterno:</label>
-          <InputForm type="text" placeholder="Tu Apellido Paterno" />
+          <InputForm
+            type="text"
+            {...register("apellidoPaterno")}
+            placeholder="Tu Apellido Paterno..."
+          />
         </Field>
 
         <Field>
           <label>Apellido Materno:</label>
-          <InputForm type="text" placeholder="Tu Apellido Materno" />
+          <InputForm
+            type="text"
+            {...register("apellidoMaterno")}
+            placeholder="Tu Apellido Materno..."
+          />
         </Field>
 
         <Field isSpan>
           <label>Región:</label>
-          <SelectForm onChange={getCommunes} as="select">
+          <SelectForm
+            {...register("region")}
+            onChange={getCommunes}
+            as="select"
+          >
             <RegionsForm regions={regions} />
           </SelectForm>
         </Field>
 
         <Field isSpan>
           <label>Comuna:</label>
-          <SelectForm as="select">
+          <SelectForm {...register("comuna")} as="select">
             <CommunesForm communesByRegion={communes} />
           </SelectForm>
         </Field>
 
         <Field isSpan>
           <label>Código Postal:</label>
-          <InputForm type="number" placeholder="Tu Código Postal" />
+          <InputForm
+            type="number"
+            {...register("codigoPostal")}
+            placeholder="Tu Código Postal..."
+          />
         </Field>
 
         <BtnForm value="Registrar" />

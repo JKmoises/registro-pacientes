@@ -8,7 +8,7 @@ interface AppProps {
 export const RegionsForm = ({ regions }: AppProps) => {
   return (
     <>
-      <option value="" defaultValue="">Seleccione una región</option>
+      <option value="" defaultValue="">Seleccione una región...</option>
       {regions.map(({ _id, nombreRegion }) => (
         <option key={_id} value={nombreRegion}>
           {nombreRegion}

@@ -11,7 +11,7 @@ export const CommunesForm = ({ communesByRegion }: AppProps) => {
   return (
     <>
       <option value="" defaultValue="">
-        Seleccione una comuna
+        Seleccione una comuna...
       </option>
 
       {communes.map((commune, i) => (
