@@ -8,6 +8,7 @@ import { CommunesForm } from './CommunesForm';
 import { RegionsForm } from './RegionsForm';
 import { PatientsCollection } from "../api/PatientsCollection";
 import { AlertForm } from './AlertForm';
+import Swal from 'sweetalert2';
 
 
 interface FieldProps {
@@ -134,8 +135,15 @@ export const PatientForm = () => {
   };
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
-    reset();
+    // reset();
     PatientsCollection.insert(data);
+
+    Swal.fire({
+      title: "Registro ingresado correctamente",
+      text: "El paciente ha sido registrado",
+      icon: "success",
+      timer: 4000,
+    });
   };
 
 
