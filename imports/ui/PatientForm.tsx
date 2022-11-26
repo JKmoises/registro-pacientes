@@ -39,6 +39,8 @@ const ContainerForm = styled.div`
 const Form = styled.form`
   display: grid;
   gap: 1rem;
+  padding: 1rem;
+  border-radius: .3rem;
 
   @media screen and (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -106,7 +108,7 @@ let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
-  const { register,formState: { errors }, handleSubmit } = useForm<PatientProp>();
+  const { register,reset, formState: { errors }, handleSubmit } = useForm<PatientProp>();
   
 
   const regions: RegionProp[] = useTracker(() =>
@@ -132,7 +134,7 @@ export const PatientForm = () => {
   };
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
-
+    reset();
     PatientsCollection.insert(data);
   };
 
@@ -141,7 +143,7 @@ export const PatientForm = () => {
     <ContainerForm>
       <h1 className="title-form">Registro de paciente</h1>
       <p className="text-form">Ingrese datos del paciente, por favor:</p>
-      <Form onSubmit={handleSubmit(insertPatient)}>
+      <Form onSubmit={handleSubmit(insertPatient)} className="box-shadow-1">
         <Field>
           <label>Rut:</label>
           <InputForm
@@ -149,7 +151,9 @@ export const PatientForm = () => {
             {...register("rut", { required: true })}
             placeholder="Tu Rut..."
           />
-          <AlertForm text="El campo RUT es obligatorio"/>
+          {errors.rut?.type === "required" && (
+            <AlertForm text="El RUT es obligatorio" />
+          )}
         </Field>
 
         <Field>
@@ -159,6 +163,9 @@ export const PatientForm = () => {
             {...register("nombre", { required: true })}
             placeholder="Tu Nombre..."
           />
+          {errors.nombre?.type === "required" && (
+            <AlertForm text="El nombre es obligatorio" />
+          )}
         </Field>
 
         <Field>
@@ -168,6 +175,9 @@ export const PatientForm = () => {
             {...register("apellidoPaterno", { required: true })}
             placeholder="Tu Apellido Paterno..."
           />
+          {errors.apellidoPaterno?.type === "required" && (
+            <AlertForm text="El apellido paterno es obligatorio" />
+          )}
         </Field>
 
         <Field>
@@ -177,17 +187,23 @@ export const PatientForm = () => {
             {...register("apellidoMaterno", { required: true })}
             placeholder="Tu Apellido Materno..."
           />
+          {errors.apellidoMaterno?.type === "required" && (
+            <AlertForm text="El apellido materno es obligatorio" />
+          )}
         </Field>
 
         <Field isSpan>
           <label>Región:</label>
           <SelectForm
+            onInput={getCommunes}
             {...register("region", { required: true })}
-            onChange={getCommunes}
             as="select"
           >
             <RegionsForm regions={regions} />
           </SelectForm>
+          {errors.region?.type === "required" && (
+            <AlertForm text="La región es obligatoria" />
+          )}
         </Field>
 
         <Field isSpan>
@@ -195,6 +211,9 @@ export const PatientForm = () => {
           <SelectForm {...register("comuna", { required: true })} as="select">
             <CommunesForm communesByRegion={communes} />
           </SelectForm>
+          {errors.comuna?.type === "required" && (
+            <AlertForm text="La comuna es obligatoria" />
+          )}
         </Field>
 
         <Field isSpan>
@@ -204,6 +223,9 @@ export const PatientForm = () => {
             {...register("codigoPostal", { required: true })}
             placeholder="Tu Código Postal..."
           />
+          {errors.codigoPostal?.type === "required" && (
+            <AlertForm text="El código postal es obligatorio" />
+          )}
         </Field>
 
         <BtnForm value="Registrar" />
