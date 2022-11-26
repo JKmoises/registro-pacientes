@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface AppProps {
   patient: PatientProp;
-  deletePatient(id: string): void;
+  deletePatient(id: string | undefined): void;
 }
 
 const TdTable = styled.td`

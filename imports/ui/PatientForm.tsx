@@ -7,6 +7,7 @@ import { RegionsCollection, RegionProp } from '../api/RegionsCollection';
 import { CommunesForm } from './CommunesForm';
 import { RegionsForm } from './RegionsForm';
 import { PatientsCollection } from "../api/PatientsCollection";
+import { AlertForm } from './AlertForm';
 
 
 interface FieldProps {
@@ -105,7 +106,7 @@ let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
-  const { register, handleSubmit } = useForm<PatientProp>();
+  const { register,formState: { errors }, handleSubmit } = useForm<PatientProp>();
   
 
   const regions: RegionProp[] = useTracker(() =>
@@ -148,6 +149,7 @@ export const PatientForm = () => {
             {...register("rut", { required: true })}
             placeholder="Tu Rut..."
           />
+          <AlertForm text="El campo RUT es obligatorio"/>
         </Field>
 
         <Field>
@@ -192,7 +194,7 @@ export const PatientForm = () => {
           <label>Comuna:</label>
           <SelectForm {...register("comuna", { required: true })} as="select">
             <CommunesForm communesByRegion={communes} />
-          </SelectForm
+          </SelectForm>
         </Field>
 
         <Field isSpan>
