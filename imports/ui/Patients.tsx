@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const TablePatiens = styled.table`
   display: inline-block;
   border-collapse: collapse;
-  border-radius: 0.5rem;
+  
   width: 100%;
   margin-bottom: 2rem;
   overflow-x: auto;

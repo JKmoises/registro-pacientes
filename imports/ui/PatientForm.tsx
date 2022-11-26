@@ -1,20 +1,18 @@
-import { useTracker } from 'meteor/react-meteor-data';
-import React, { useState } from 'react'
+import { useTracker } from "meteor/react-meteor-data";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import styled from 'styled-components';
-import { PatientProp } from '../api/PatientsCollection';
-import { RegionsCollection, RegionProp } from '../api/RegionsCollection';
-import { CommunesForm } from './CommunesForm';
-import { RegionsForm } from './RegionsForm';
+import styled from "styled-components";
+import { PatientProp } from "../api/PatientsCollection";
+import { RegionsCollection, RegionProp } from "../api/RegionsCollection";
+import { CommunesForm } from "./CommunesForm";
+import { RegionsForm } from "./RegionsForm";
 import { PatientsCollection } from "../api/PatientsCollection";
-import { AlertForm } from './AlertForm';
-import Swal from 'sweetalert2';
-
+import { AlertForm } from "./AlertForm";
+import Swal from "sweetalert2";
 
 interface FieldProps {
   isSpan?: boolean;
 }
-
 
 interface AppState {
   region: string;
@@ -41,7 +39,7 @@ const Form = styled.form`
   display: grid;
   gap: 1rem;
   padding: 1rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 
   @media screen and (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -73,7 +71,7 @@ const InputForm = styled.input`
   border: 0;
   border-bottom: thin solid var(--gray-color);
   outline: none;
-  transition:  border-bottom .3s ease-in-out;
+  transition: border-bottom 0.3s ease-in-out;
 
   &:focus {
     border-bottom: 2px solid var(--pink-color);
@@ -109,14 +107,15 @@ let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
-  const { register,reset, formState: { errors }, handleSubmit } = useForm<PatientProp>();
-  
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<PatientProp>();
 
   const regions: RegionProp[] = useTracker(() =>
-    RegionsCollection.find(
-      {},
-      { fields: { nombreRegion: 1 }}
-    ).fetch()
+    RegionsCollection.find({}, { fields: { nombreRegion: 1 } }).fetch()
   );
 
   const communes: RegionProp =
@@ -126,7 +125,6 @@ export const PatientForm = () => {
         { fields: { nombreRegion: 0 } }
       )
     ) ?? {};
-  
 
   const getCommunes: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     let regionName: string = e.target.value;
@@ -145,7 +143,6 @@ export const PatientForm = () => {
       timer: 4000,
     });
   };
-
 
   return (
     <ContainerForm>
@@ -228,11 +225,18 @@ export const PatientForm = () => {
           <label>Código Postal:</label>
           <InputForm
             type="number"
-            {...register("codigoPostal", { required: true })}
+            {...register("codigoPostal", {
+              required: true,
+              pattern: /^[0-9]{7}$/,
+            })}
             placeholder="Tu Código Postal..."
           />
+
           {errors.codigoPostal?.type === "required" && (
             <AlertForm text="El código postal es obligatorio" />
+          )}
+          {errors.codigoPostal?.type === "pattern" && (
+            <AlertForm text="El código postal debe tener 7 dígitos" />
           )}
         </Field>
 
@@ -240,4 +244,4 @@ export const PatientForm = () => {
       </Form>
     </ContainerForm>
   );
-}
+};
