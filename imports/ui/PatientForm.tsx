@@ -9,6 +9,7 @@ import { RegionsForm } from "./RegionsForm";
 import { PatientsCollection } from "../api/PatientsCollection";
 import { AlertForm } from "./AlertForm";
 import Swal from "sweetalert2";
+import { rutValidator } from "../helpers/validators";
 
 interface FieldProps {
   isSpan?: boolean;
@@ -133,7 +134,7 @@ export const PatientForm = () => {
   };
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
-    // reset();
+    reset();
     PatientsCollection.insert(data);
 
     Swal.fire({
@@ -153,11 +154,17 @@ export const PatientForm = () => {
           <label>Rut:</label>
           <InputForm
             type="text"
-            {...register("rut", { required: true })}
-            placeholder="Tu Rut..."
+            {...register("rut", {
+              required: true,
+              validate: rutValidator,
+            })}
+            placeholder="Tu Rut (sin guión ni puntos)..."
           />
           {errors.rut?.type === "required" && (
             <AlertForm text="El RUT es obligatorio" />
+          )}
+          {errors.rut && (
+            <AlertForm text="El RUT no es válido" />
           )}
         </Field>
 
