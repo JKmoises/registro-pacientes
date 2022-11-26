@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 interface AppProps {
   patient: PatientProp;
+  deletePatient(id: string): void;
 }
 
 const TdTable = styled.td`
@@ -25,19 +26,32 @@ const BtnDelete = styled(TdTable)`
   
 `;
 
-export const Patient = ({ patient }: AppProps) => {
-  let {rut,nombre, apellidoPaterno,apellidoMaterno,region,comuna,codigoPostal} = patient;
+export const Patient = ({ patient, deletePatient }: AppProps) => {
+  let {
+    _id,
+    rut,
+    nombre,
+    apellidoPaterno,
+    apellidoMaterno,
+    region,
+    comuna,
+    codigoPostal,
+  } = patient;
 
   return (
     <tr>
       <TdTable>{rut}</TdTable>
       <TdTable>{nombre}</TdTable>
-      <TdTable>{apellidoPaterno} {apellidoMaterno}</TdTable>
+      <TdTable>
+        {apellidoPaterno} {apellidoMaterno}
+      </TdTable>
       <TdTable>{region}</TdTable>
       <TdTable>{comuna}</TdTable>
       <TdTable>{codigoPostal}</TdTable>
       <TdTable>
-        <BtnDelete as="button">Eliminar</BtnDelete>
+        <BtnDelete onClick={() => deletePatient(_id)} as="button">
+          Eliminar
+        </BtnDelete>
       </TdTable>
     </tr>
   );

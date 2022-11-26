@@ -111,7 +111,7 @@ export const PatientForm = () => {
   const regions: RegionProp[] = useTracker(() =>
     RegionsCollection.find(
       {},
-      { fields: { nombreRegion: 1 }, sort: { rut: -1 } }
+      { fields: { nombreRegion: 1 }}
     ).fetch()
   );
 
@@ -131,7 +131,6 @@ export const PatientForm = () => {
   };
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
-    console.log(data);
 
     PatientsCollection.insert(data);
   };
@@ -144,14 +143,18 @@ export const PatientForm = () => {
       <Form onSubmit={handleSubmit(insertPatient)}>
         <Field>
           <label>Rut:</label>
-          <InputForm type="text" {...register("rut")} placeholder="Tu Rut..." />
+          <InputForm
+            type="text"
+            {...register("rut", { required: true })}
+            placeholder="Tu Rut..."
+          />
         </Field>
 
         <Field>
           <label>Nombre:</label>
           <InputForm
             type="text"
-            {...register("nombre")}
+            {...register("nombre", { required: true })}
             placeholder="Tu Nombre..."
           />
         </Field>
@@ -160,7 +163,7 @@ export const PatientForm = () => {
           <label>Apellido Paterno:</label>
           <InputForm
             type="text"
-            {...register("apellidoPaterno")}
+            {...register("apellidoPaterno", { required: true })}
             placeholder="Tu Apellido Paterno..."
           />
         </Field>
@@ -169,7 +172,7 @@ export const PatientForm = () => {
           <label>Apellido Materno:</label>
           <InputForm
             type="text"
-            {...register("apellidoMaterno")}
+            {...register("apellidoMaterno", { required: true })}
             placeholder="Tu Apellido Materno..."
           />
         </Field>
@@ -177,7 +180,7 @@ export const PatientForm = () => {
         <Field isSpan>
           <label>Región:</label>
           <SelectForm
-            {...register("region")}
+            {...register("region", { required: true })}
             onChange={getCommunes}
             as="select"
           >
@@ -187,16 +190,16 @@ export const PatientForm = () => {
 
         <Field isSpan>
           <label>Comuna:</label>
-          <SelectForm {...register("comuna")} as="select">
+          <SelectForm {...register("comuna", { required: true })} as="select">
             <CommunesForm communesByRegion={communes} />
-          </SelectForm>
+          </SelectForm
         </Field>
 
         <Field isSpan>
           <label>Código Postal:</label>
           <InputForm
             type="number"
-            {...register("codigoPostal")}
+            {...register("codigoPostal", { required: true })}
             placeholder="Tu Código Postal..."
           />
         </Field>

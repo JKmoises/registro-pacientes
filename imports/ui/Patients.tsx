@@ -54,6 +54,9 @@ const ThTable = styled.th`
 export const Patients = () => {
   const patients: PatientProp[] = useTracker(() => PatientsCollection.find({}).fetch()); 
 
+  const deletePatient = (id: string) => PatientsCollection.remove(id);
+  
+
   return (
     <TablePatiens>
       <thead>
@@ -69,7 +72,11 @@ export const Patients = () => {
       </thead>
       <tbody>
         {patients.map((patient) => (
-          <Patient key={patient._id} patient={patient} />
+          <Patient
+            key={patient._id}
+            patient={patient}
+            deletePatient={deletePatient}
+          />
         ))}
       </tbody>
     </TablePatiens>
