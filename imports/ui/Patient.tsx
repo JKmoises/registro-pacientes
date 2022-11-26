@@ -1,30 +1,12 @@
 import React from 'react'
 import { PatientProp } from '../api/PatientsCollection';
-import styled from 'styled-components';
+import { BtnDelete, TdTable } from './styles/PatientStyles';
 
 interface AppProps {
   patient: PatientProp;
   deletePatient(id: string | undefined): void;
 }
 
-const TdTable = styled.td`
-  font-size: 1.1rem;
-`;
-
-const BtnDelete = styled(TdTable)`
-  padding: .5rem 1.5rem;
-  background-color: var(--red-dark-color);
-  color: var(--white-color);
-  border: none;
-  border-radius: .3rem;
-  transition: opacity .3s ease-out;
-  
-  &:hover{
-    opacity: .8;
-    cursor: pointer;
-  }
-  
-`;
 
 export const Patient = ({ patient, deletePatient }: AppProps) => {
   let {
