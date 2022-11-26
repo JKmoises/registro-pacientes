@@ -165,11 +165,17 @@ export const PatientForm = () => {
           <label>Nombre:</label>
           <InputForm
             type="text"
-            {...register("nombre", { required: true })}
+            {...register("nombre", {
+              required: true,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+            })}
             placeholder="Tu Nombre..."
           />
           {errors.nombre?.type === "required" && (
             <AlertForm text="El nombre es obligatorio" />
+          )}
+          {errors.nombre?.type === "pattern" && (
+            <AlertForm text="El nombre no es válido" />
           )}
         </Field>
 
@@ -177,11 +183,17 @@ export const PatientForm = () => {
           <label>Apellido Paterno:</label>
           <InputForm
             type="text"
-            {...register("apellidoPaterno", { required: true })}
+            {...register("apellidoPaterno", {
+              required: true,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+            })}
             placeholder="Tu Apellido Paterno..."
           />
           {errors.apellidoPaterno?.type === "required" && (
             <AlertForm text="El apellido paterno es obligatorio" />
+          )}
+          {errors.apellidoPaterno?.type === "pattern" && (
+            <AlertForm text="El apellido paterno no es válido" />
           )}
         </Field>
 
@@ -189,11 +201,17 @@ export const PatientForm = () => {
           <label>Apellido Materno:</label>
           <InputForm
             type="text"
-            {...register("apellidoMaterno", { required: true })}
+            {...register("apellidoMaterno", {
+              required: true,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+            })}
             placeholder="Tu Apellido Materno..."
           />
           {errors.apellidoMaterno?.type === "required" && (
             <AlertForm text="El apellido materno es obligatorio" />
+          )}
+          {errors.apellidoMaterno?.type === "pattern" && (
+            <AlertForm text="El apellido materno no es válido" />
           )}
         </Field>
 
@@ -224,7 +242,7 @@ export const PatientForm = () => {
         <Field isSpan>
           <label>Código Postal:</label>
           <InputForm
-            type="number"
+            type="text"
             {...register("codigoPostal", {
               required: true,
               pattern: /^[0-9]{7}$/,
