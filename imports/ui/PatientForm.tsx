@@ -15,10 +15,13 @@ interface AppState {
   region: string;
 }
 
+interface AppProps {
+  patients: PatientProp[];
+}
 
 let initialRegion: AppState["region"] = "";
 
-export const PatientForm = () => {
+export const PatientForm = ({ patients }: AppProps) => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
 
   const {
@@ -47,8 +50,21 @@ export const PatientForm = () => {
   };
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
+    const rutExist = patients.find(({ rut }) => rut === data.rut);
+  
+    if (rutExist) {
+      Swal.fire({
+        title: "El rut ingresado ya está registrado",
+        text: "Ingrese un RUT que no esté registrado",
+        icon: "error",
+        timer: 5000,
+      });
+
+      return;
+    }
+
     reset();
-    Meteor.call('patients.insert',data);
+    Meteor.call("patients.insert", data);
 
     Swal.fire({
       title: "Registro ingresado correctamente",
@@ -70,9 +86,9 @@ export const PatientForm = () => {
             {...register("rut", {
               required: true,
               // validate: rutValidator,
-              pattern: /^([0-9]{7,8})-?[0-9kK]{1}$/,
+              pattern: /^([0-9]{7,8})-[0-9kK]{1}$/,
             })}
-            placeholder="Tu Rut (sin puntos)..."
+            placeholder="Tu Rut (sin puntos, con guión)..."
           />
           {errors.rut?.type === "required" && (
             <AlertForm text="El RUT es obligatorio" />

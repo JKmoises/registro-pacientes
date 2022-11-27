@@ -1,17 +1,16 @@
 import React from "react";
-import { useTracker } from "meteor/react-meteor-data";
 import { Patient } from "./Patient";
 import Swal from "sweetalert2";
 import { TablePatiens, ThTable } from "./styles/PatientsStyles";
-import { PatientProp, PatientsCollection } from '../db/PatientsCollection';
 import { Meteor } from 'meteor/meteor';
+import { PatientProp } from '../db/PatientsCollection';
+
+interface AppProps {
+  patients: PatientProp[];
+}
 
 
-export const Patients = () => {
-  const patients: PatientProp[] = useTracker(() =>
-    PatientsCollection.find({},{ sort: { rut: -1 } }).fetch()
-  );
-
+export const Patients = ({ patients }: AppProps) => {
   const deletePatient = (id: string) => {
     Swal.fire({
       title: "¿Estás seguro de borrar un paciente?",
@@ -24,7 +23,7 @@ export const Patients = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        Meteor.call('patients.remove', id);
+        Meteor.call("patients.remove", id);
 
         Swal.fire({
           title: "Registro borrado con éxito",
