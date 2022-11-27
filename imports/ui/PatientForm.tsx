@@ -5,7 +5,7 @@ import { CommunesForm } from "./CommunesForm";
 import { RegionsForm } from "./RegionsForm";
 import { AlertForm } from "./AlertForm";
 import Swal from "sweetalert2";
-import { rutValidator } from "../helpers/validators";
+// import { rutValidator } from "../helpers/validators";
 import { BtnForm, ContainerForm, Field, Form, InputForm, SelectForm } from "./styles/FormStyles";
 import { RegionProp, RegionsCollection } from '../db/RegionsCollection';
 import { PatientProp } from '../db/PatientsCollection';
@@ -20,6 +20,7 @@ let initialRegion: AppState["region"] = "";
 
 export const PatientForm = () => {
   const [region, setRegion] = useState<AppState["region"]>(initialRegion);
+
   const {
     register,
     reset,
@@ -87,7 +88,7 @@ export const PatientForm = () => {
             type="text"
             {...register("nombre", {
               required: true,
-              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/,
             })}
             placeholder="Tu Nombre..."
           />
@@ -105,7 +106,7 @@ export const PatientForm = () => {
             type="text"
             {...register("apellidoPaterno", {
               required: true,
-              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/,
             })}
             placeholder="Tu Apellido Paterno..."
           />
@@ -123,7 +124,7 @@ export const PatientForm = () => {
             type="text"
             {...register("apellidoMaterno", {
               required: true,
-              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+              pattern: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/,
             })}
             placeholder="Tu Apellido Materno..."
           />

@@ -9,7 +9,7 @@ import { Meteor } from 'meteor/meteor';
 
 export const Patients = () => {
   const patients: PatientProp[] = useTracker(() =>
-    PatientsCollection.find({}).fetch()
+    PatientsCollection.find({},{ sort: { rut: -1 } }).fetch()
   );
 
   const deletePatient = (id: string) => {
