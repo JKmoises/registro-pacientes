@@ -1,6 +1,6 @@
 import React from 'react'
-import { PatientProp } from '../api/PatientsCollection';
 import { BtnDelete, TdTable } from './styles/PatientStyles';
+import { PatientProp } from '../db/PatientsCollection';
 
 interface AppProps {
   patient: PatientProp;

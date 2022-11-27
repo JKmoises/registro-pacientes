@@ -1,9 +1,10 @@
 import React from "react";
 import { useTracker } from "meteor/react-meteor-data";
-import { PatientProp, PatientsCollection } from "../api/PatientsCollection";
 import { Patient } from "./Patient";
 import Swal from "sweetalert2";
 import { TablePatiens, ThTable } from "./styles/PatientsStyles";
+import { PatientProp, PatientsCollection } from '../db/PatientsCollection';
+import { Meteor } from 'meteor/meteor';
 
 
 export const Patients = () => {
@@ -23,7 +24,11 @@ export const Patients = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        PatientsCollection.remove(id);
+        Meteor.call('patients.remove', id);
+
+        // PatientsCollection.remove(id);
+
+
         Swal.fire({
           title: "Registro borrado con éxito",
           text: "El paciente ha sido eliminado",
@@ -58,7 +63,9 @@ export const Patients = () => {
           ))
         ) : (
           <tr>
-            <ThTable colSpan={7}>No hay ningún paciente registrado, ingrese uno</ThTable>
+            <ThTable colSpan={7} className="no-patients">
+              No hay ningún paciente registrado, ingrese uno
+            </ThTable>
           </tr>
         )}
       </tbody>

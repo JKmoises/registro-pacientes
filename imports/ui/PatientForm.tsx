@@ -1,15 +1,15 @@
 import { useTracker } from "meteor/react-meteor-data";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { PatientProp } from "../api/PatientsCollection";
-import { RegionsCollection, RegionProp } from "../api/RegionsCollection";
 import { CommunesForm } from "./CommunesForm";
 import { RegionsForm } from "./RegionsForm";
-import { PatientsCollection } from "../api/PatientsCollection";
 import { AlertForm } from "./AlertForm";
 import Swal from "sweetalert2";
 import { rutValidator } from "../helpers/validators";
 import { BtnForm, ContainerForm, Field, Form, InputForm, SelectForm } from "./styles/FormStyles";
+import { RegionProp, RegionsCollection } from '../db/RegionsCollection';
+import { PatientProp, PatientsCollection } from '../db/PatientsCollection';
+import { Meteor } from 'meteor/meteor';
 
 interface AppState {
   region: string;
@@ -47,7 +47,7 @@ export const PatientForm = () => {
 
   const insertPatient: SubmitHandler<PatientProp> = (data) => {
     reset();
-    PatientsCollection.insert(data);
+    Meteor.call('patients.insert',data);
 
     Swal.fire({
       title: "Registro ingresado correctamente",

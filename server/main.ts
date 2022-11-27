@@ -1,7 +1,8 @@
-import { PatientProp, PatientsCollection } from "/imports/api/PatientsCollection";
 import { Meteor } from 'meteor/meteor';
 import { patiens, regions } from "./data";
-import { RegionProp, RegionsCollection } from "/imports/api/RegionsCollection";
+import { PatientProp, PatientsCollection } from '../imports/db/PatientsCollection';
+import { RegionProp, RegionsCollection } from '../imports/db/RegionsCollection';
+import "../imports/api/patientsMethods";
 
 
 const insertPatiens = (patient: PatientProp) => {

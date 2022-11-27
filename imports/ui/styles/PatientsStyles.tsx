@@ -43,4 +43,8 @@ export const ThTable = styled.th`
   font-size: 1.2rem;
   font-weight: 300;
   text-transform: uppercase;
+  
+  &.no-patients {
+    font-weight: 400;
+  }
 `;

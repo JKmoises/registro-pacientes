@@ -9,7 +9,7 @@ export interface PatientProp {
   rut: string;
   region: string;
   comuna: string;
-  codigoPostal: number;
+  codigoPostal: string;
 }
 
 export const PatientsCollection = new Mongo.Collection<PatientProp>("patiens");

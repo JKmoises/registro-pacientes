@@ -1,5 +1,5 @@
 import React from 'react'
-import { RegionProp } from '/imports/api/RegionsCollection';
+import { RegionProp } from '../db/RegionsCollection';
 
 interface AppProps {
   regions: RegionProp[];

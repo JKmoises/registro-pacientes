@@ -1,6 +1,6 @@
 import { generateRut } from "rutlib/lib";
-import { PatientProp } from "/imports/api/PatientsCollection";
-import { RegionProp } from '../imports/api/RegionsCollection';
+import { PatientProp } from '../imports/db/PatientsCollection';
+import { RegionProp } from '../imports/db/RegionsCollection';
 
 
 export const patiens: PatientProp[] = [
