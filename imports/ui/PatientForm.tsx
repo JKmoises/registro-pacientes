@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { rutValidator } from "../helpers/validators";
 import { BtnForm, ContainerForm, Field, Form, InputForm, SelectForm } from "./styles/FormStyles";
 import { RegionProp, RegionsCollection } from '../db/RegionsCollection';
-import { PatientProp, PatientsCollection } from '../db/PatientsCollection';
+import { PatientProp } from '../db/PatientsCollection';
 import { Meteor } from 'meteor/meteor';
 
 interface AppState {
@@ -69,6 +69,7 @@ export const PatientForm = () => {
             {...register("rut", {
               required: true,
               validate: rutValidator,
+              // pattern: /^[0-9Kk]{8,9}$/,
             })}
             placeholder="Tu Rut (sin guión ni puntos)..."
           />
@@ -76,6 +77,9 @@ export const PatientForm = () => {
             <AlertForm text="El RUT es obligatorio" />
           )}
           {errors.rut?.type === "validate" && (
+            <AlertForm text="El RUT no es válido" />
+          )}
+          {errors.rut?.type === "pattern" && (
             <AlertForm text="El RUT no es válido" />
           )}
         </Field>

@@ -26,9 +26,6 @@ export const Patients = () => {
       if (result.isConfirmed) {
         Meteor.call('patients.remove', id);
 
-        // PatientsCollection.remove(id);
-
-
         Swal.fire({
           title: "Registro borrado con éxito",
           text: "El paciente ha sido eliminado",
