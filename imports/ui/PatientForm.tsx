@@ -68,16 +68,13 @@ export const PatientForm = () => {
             type="text"
             {...register("rut", {
               required: true,
-              validate: rutValidator,
-              // pattern: /^[0-9Kk]{8,9}$/,
+              // validate: rutValidator,
+              pattern: /^([0-9]{7,8})-?[0-9kK]{1}$/,
             })}
-            placeholder="Tu Rut (sin guión ni puntos)..."
+            placeholder="Tu Rut (sin puntos)..."
           />
           {errors.rut?.type === "required" && (
             <AlertForm text="El RUT es obligatorio" />
-          )}
-          {errors.rut?.type === "validate" && (
-            <AlertForm text="El RUT no es válido" />
           )}
           {errors.rut?.type === "pattern" && (
             <AlertForm text="El RUT no es válido" />
