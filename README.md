@@ -18,6 +18,6 @@
 - __MongoDB:__ _BD_ no relacional para la persistencia de datos que usa _MeteorJS_.
 - __Typescript:__ Superset de _Javascript_ que aplica tipado estricto y previene errores en tiempo de escritura de código.
 - __Styled Components:__ Librería que aplica _[CSS IN JS](https://en.wikipedia.org/wiki/CSS-in-JS)_ para crear _componentes estilizados_.
-- __React Hook Form:__ Librería de _ReactJS_ que facilita el manejo de formularios mediente un _Hook_.
+- __React Hook Form:__ Librería de _ReactJS_ que facilita el manejo de formularios mediante un _Hook_.
 - __RUTlib:__ Librería que facilita las validaciones de  un RUT.
 - __SweetAlert2:__ Librería que crea modales dinámicos útiles para validaciones.
