@@ -77,7 +77,8 @@ export const PatientForm = ({ patients }: AppProps) => {
   return (
     <ContainerForm>
       <h1 className="title-form">Registro de paciente</h1>
-      <p className="text-form">Ingrese datos del paciente, por favor:</p>
+      <p className="text-form">Ingrese datos del paciente, a continuación:</p>
+
       <Form onSubmit={handleSubmit(insertPatient)} className="box-shadow-1">
         <Field>
           <label>Rut:</label>

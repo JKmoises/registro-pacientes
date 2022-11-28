@@ -3,8 +3,9 @@ import { GlobalStyle } from './styles/globalStyles';
 import { Patients } from './Patients';
 import { PatientForm } from './PatientForm';
 import { Container } from './styles/AppStyles';
-import { PatientProp, PatientsCollection } from "../db/PatientsCollection";
-import { useTracker } from "meteor/react-meteor-data";
+import { useTracker } from 'meteor/react-meteor-data';
+import { PatientProp, PatientsCollection } from '../db/PatientsCollection';
+
 
 
 export const App = () => {
